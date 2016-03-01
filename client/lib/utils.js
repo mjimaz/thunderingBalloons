@@ -10,15 +10,12 @@ var logout = function () {
 var getEvents = function (callback) {
 
   $.get('/events')
-      .done(function (data){
-       callback({eventsList: data, currentPage: '/myEvents'});
+    .done(function (data){
+      callback({eventsList: data, currentPage: '/myEvents'});
 
+      console.log('events:', data);
 
-
-
-       console.log('events:', data);
-
-
+      
 
     }).fail(function (error){
       console.error('Failed to receive events!', error);

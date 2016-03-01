@@ -29,7 +29,7 @@ eventsRouter.route('/')
     sequelize.query(query).spread(function(eventsList, metadata){
       eventsList.forEach(function(event, index){
         // query to get the name of all invitees for specific event
-        query = 'SELECT users.username FROM invitees, users ' + 
+        query = 'SELECT users.username, invitees.current_status FROM invitees, users ' + 
                 'WHERE (invitees.eid = '+ event.eid + ' AND users.id = invitees.uid)';
         sequelize.query(query).spread(function(attendees, metadata){
           eventsList[index].attendees = attendees;

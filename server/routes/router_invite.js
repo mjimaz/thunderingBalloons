@@ -11,8 +11,6 @@ var inviteRouter = express.Router();
 
 // db helpers
 var sequelize = require('../db/config/sequelize_connection');
-var Invitee = require('../db/models/invitee');
-
 
 ////////////////////
 // route handling //
@@ -31,19 +29,6 @@ inviteRouter.route('/')
         res.send(200, "Invite updated")
       }
     }).catch(utils.handleError(req, res, 500, "Error while updating invitee information in database."));
-  })
-  .get(utils.checkUser, function(req, res) {
-    var uid = req.session.uid;
-    var eid = req.body.eid;
-    Invitee.findAll({
-       attributes: ["uid", "current_status"],
-       where: {
-         uid: { $eq: uid },
-         eid:  { $eq: eid }
-       },
-     }).then(function(allInvitees){
-       res.send(200, allInvitees);
-     }).catch(utils.handleError(req, res, 500, "Unable to retrieve invitees from database"));
   });
 
 
