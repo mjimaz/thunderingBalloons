@@ -37,10 +37,10 @@ class SimpleMap extends React.Component {
       midLng = midLng/coordinates.length;
 
       return (
-        <div className="col-md-12">
+        <div className="col-md-6">
           <Gmaps
-            width={'800px'}
-            height={'800px'}
+            width={'600px'}
+            height={'600px'}
             lat={midLat}
             lng={midLng}
             zoom={12}
@@ -68,10 +68,10 @@ class SimpleMap extends React.Component {
       )
     } else {
     return (
-      <div className="col-md-12">
+      <div className="col-md-6">
         <Gmaps
-              width={'800px'}
-              height={'800px'}
+              width={'600px'}
+              height={'600px'}
               lat={lat}
               lng={lng}
               zoom={12}
