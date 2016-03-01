@@ -1,0 +1,92 @@
+GREENFIELD DATABASE INSTRUCTIONS - Meet Me
+
+-Postgres Installation-
+brew update
+brew install postgres
+
+-Run DB-
+postgres -D /usr/local/var/postgres
+
+-Login to db first time-
+Open new tab (cmd + T)
+CREATE USER xxx PASSWORD 'yyy'; (remember these details!)
+createdb `thunderingballoons` (use backticks around db name)
+
+-Log in to db subsequent times-
+Open new tab (cmd + T)
+psql thunderingballoons
+
+-Create users table (from scratch)-
+CREATE TABLE users (
+id SERIAL primary key,
+username character varying,
+hash character varying,
+email character varying,
+latitude numeric,
+longitude numeric,
+"createdAt"  TIMESTAMPTZ,
+"updatedAt" TIMESTAMPTZ
+);
+
+-Create events table (from scratch)-
+CREATE TABLE events (
+id SERIAL primary key,
+event_name character varying,
+org_id int references users(id),
+venue_name character varying,
+neighborhood character varying, 
+street character varying,
+city character varying,
+state character varying,
+event_time TIMESTAMPTZ,
+latitude numeric,
+longitude numeric, 
+phone character varying,
+rating numeric,
+rating_img character varying,
+image character varying,
+yelp_link character varying,
+"createdAt"  TIMESTAMPTZ,
+"updatedAt" TIMESTAMPTZ
+);
+
+
+-Create enumerable statuses for invitees table-
+CREATE TYPE status AS ENUM ('pending', 'accepted', 'rejected');
+
+-Create invitees table (from scratch)-
+CREATE TABLE invitees (
+ id SERIAL primary key,
+ uid int references users(id),
+ eid int references events(id),
+ current_status status,
+ "createdAt"  TIMESTAMPTZ,
+ "updatedAt" TIMESTAMPTZ
+);
+
+-Create event_messages table (from scratch)-
+CREATE TABLE event_messages (
+ id SERIAL primary key,
+ uid int references users(id),
+ eid int references events(id),
+ message character varying,
+ "createdAt"  TIMESTAMPTZ,
+ "updatedAt" TIMESTAMPTZ
+);
+
+-Update permissions db config-
+Insert your username and password in db/config/config.json
+
+—MISCELANEOUS COMMANDS — 
+-List all tables in DB-
+\d
+
+-List all databases-
+\l
+
+-DROP TABLE - If you need to wipe it and start over-
+DROP TABLE tableName;
+
+-REMOVE DATABASE - If you need to wipe it and start over-
+\c postgres
+DROP DATABASE nameOfDatabase;
